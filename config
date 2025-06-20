@@ -9,6 +9,14 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -57,7 +65,6 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -109,7 +116,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -188,11 +195,23 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+           status_command i3status
 }
 
-# bindsym $mod+p exec --no-startup-id dmenu_run
-bindsym $mod+p exec "rofi -modi drun,run -show drun"
+# bindsym $mod+p exec --no-startup-id dmenu_run -m 1
+# bindsym $mod+p exec "rofi -theme lb -modi drun,run -show drun"
+bindsym $mod+p exec "rofi -theme dmenu -modi drun,run -show drun"
 bindsym $mod+z kill
 bindsym $mod+m fullscreen toggle
 workspace_layout tabbed
+
+bindsym $mod+minus move scratchpad
+bindsym $mod+plus scratchpad show
+
+gaps inner 5
+gaps outer 5
+smart_gaps on
+
+for_window [class="^.*"] border pixel 0
+
+
