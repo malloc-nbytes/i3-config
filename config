@@ -198,11 +198,31 @@ bar {
            status_command i3status
 }
 
-# bindsym $mod+p exec --no-startup-id dmenu_run -m 1
+bindsym $mod+p exec --no-startup-id dmenu_run -p "gentoo: " -nb '#161616' -sb black
+
+# bindsym Mod1+Tab exec "rofi -theme android_notification -show window"
+bindsym Mod1+Tab exec "rofi -theme android_notification -modi window,run -show window"
+
+# bindsym $mod+p exec --no-startup-id dmenu_run -p "gentoo: " -nf yellow -nb '#161616' -sb black
 # bindsym $mod+p exec "rofi -theme lb -modi drun,run -show drun"
-bindsym $mod+p exec "rofi -theme dmenu -modi drun,run -show drun"
+# bindsym $mod+p exec "rofi -theme dmenu -modi drun,run -show drun"
 bindsym $mod+z kill
 bindsym $mod+m fullscreen toggle
+
+# audio
+bindsym $mod+F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym $mod+F1 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym $mod+F3 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+
+# flameshot
+bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+Print --release exec --no-startup-id flameshot screen
+bindsym $mod+F4 exec --no-startup-id flameshot gui
+
+# Languages
+bindsym $mod+bracketright exec --no-startup-id ibus engine anthy
+bindsym $mod+bracketleft exec --no-startup-id ibus engine xkb:us::eng
+
 workspace_layout tabbed
 
 bindsym $mod+minus move scratchpad
@@ -212,6 +232,22 @@ gaps inner 5
 gaps outer 5
 smart_gaps on
 
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 1
 
+# Enable floating windows
+#for_window [class="^.*"] floating enable
 
+# DEFAULT CLASS
+# class                 border  background  text    indicator  child_border
+# client.focused          #4c7899 #285577     #ffffff #2e9ef4    #285577
+# client.unfocused        #333333 #222222     #888888 #292d2e    #222222
+# client.focused_inactive #333333 #5f676a     #ffffff #484e50    #5f676a
+# client.urgent           #2f343a #900000     #ffffff #900000    #900000
+# client.placeholder      #000000 #0c0c0c     #ffffff #000000    #0c0c0c
+
+# class                 border  background  text    indicator  child_border
+client.focused          #00ffff #285577     #00ffff #2e9ef4    #285577
+client.unfocused        #333333 #161616     #888888 #292d2e    #222222
+client.focused_inactive #333333 #5f676a     #ffffff #484e50    #5f676a
+client.urgent           #2f343a #900000     #ffffff #900000    #900000
+client.placeholder      #000000 #0c0c0c     #ffffff #000000    #0c0c0c
