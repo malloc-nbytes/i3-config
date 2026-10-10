@@ -60,6 +60,7 @@ tiling_drag modifier titlebar
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -101,19 +102,17 @@ bindsym $mod+h split h
 # split in vertical orientation
 bindsym $mod+v split v
 
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+#bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Shift+space floating toggle
+bindsym $mod+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 # bindsym $mod+a focus parent
@@ -198,14 +197,11 @@ bar {
            status_command i3status
 }
 
-bindsym $mod+p exec --no-startup-id dmenu_run -p "gentoo: " -nb '#161616' -sb black
+bindsym $mod+p exec --no-startup-id dmenu_run -p "gentoo: " -nb '#161616' -sb black -sf '#00ffff'
+#bindsym $mod+p exec --no-startup-id alacritty --class app-launcher -e bash -c applauncher-script
+#bindsym $mod+p exec --no-startup-id st -f "UbuntuMono:Regular:size=14" -e bash -c applauncher-script
+#for_window [class="app-launcher"] floating enable
 
-# bindsym Mod1+Tab exec "rofi -theme android_notification -show window"
-bindsym Mod1+Tab exec "rofi -theme android_notification -modi window,run -show window"
-
-# bindsym $mod+p exec --no-startup-id dmenu_run -p "gentoo: " -nf yellow -nb '#161616' -sb black
-# bindsym $mod+p exec "rofi -theme lb -modi drun,run -show drun"
-# bindsym $mod+p exec "rofi -theme dmenu -modi drun,run -show drun"
 bindsym $mod+z kill
 bindsym $mod+m fullscreen toggle
 
@@ -213,6 +209,7 @@ bindsym $mod+m fullscreen toggle
 bindsym $mod+F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym $mod+F1 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym $mod+F3 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+#bindsym $mod+grave exec --no-startup-id pactl set-source-mute alsa_input.usb-Generic_USB_Condenser_Microphone_201701110001-00.analog-stereo toggle
 
 # flameshot
 bindsym Print exec --no-startup-id flameshot gui
@@ -221,7 +218,9 @@ bindsym $mod+F4 exec --no-startup-id flameshot gui
 
 # Languages
 bindsym $mod+bracketright exec --no-startup-id ibus engine anthy
-bindsym $mod+bracketleft exec --no-startup-id ibus engine xkb:us::eng
+bindsym $mod+bracketleft exec --no-startup-id /bin/sh -c 'ibus engine xkb:us::eng && /bin/sh /home/zdh/Scripts/kb && notify-send -t 1000 "switched to EN"'
+#bindsym $mod+bracketleft exec --no-startup-id /bin/sh -c 'ibus engine xkb:us::eng && cmdcenter --keyboard && notify-send -t 1000 "switched to EN"'
+#bindsym $mod+bracketleft exec --no-startup-id ibus engine xkb:us::eng
 
 workspace_layout tabbed
 
@@ -234,8 +233,11 @@ smart_gaps on
 
 for_window [class="^.*"] border pixel 1
 
-# Enable floating windows
-#for_window [class="^.*"] floating enable
+bindsym $mod+i exec --no-startup-id librewolf
+bindsym $mod+d exec --no-startup-id discord
+bindsym $mod+s exec --no-startup-id steam
+bindsym $mod+e exec --no-startup-id emacs
+bindsym $mod+f exec --no-startup-id pcmanfm
 
 # DEFAULT CLASS
 # class                 border  background  text    indicator  child_border
@@ -246,8 +248,20 @@ for_window [class="^.*"] border pixel 1
 # client.placeholder      #000000 #0c0c0c     #ffffff #000000    #0c0c0c
 
 # class                 border  background  text    indicator  child_border
-client.focused          #00ffff #285577     #00ffff #2e9ef4    #285577
+client.focused          #00ffff #285577     #ffffff #2e9ef4    #285577
 client.unfocused        #333333 #161616     #888888 #292d2e    #222222
 client.focused_inactive #333333 #5f676a     #ffffff #484e50    #5f676a
 client.urgent           #2f343a #900000     #ffffff #900000    #900000
 client.placeholder      #000000 #0c0c0c     #ffffff #000000    #0c0c0c
+
+# class                 border    background   text      indicator   child_border
+#client.focused          #FFFFFF   #002868      #FFFFFF   #BF0A30     #002868
+#client.unfocused        #333333   #0F1C3A      #AAAAAA   #1E2A4A     #1E2A4A
+#client.focused_inactive #333333   #1C2B5E      #CCCCCC   #2C406F     #1C2B5E
+#client.urgent           #BF0A30   #8B0000      #FFFFFF   #FF2222     #BF0A30
+#client.placeholder      #222222   #0A0F1F      #888888   #002868     #0A0F1F
+
+# focus_follows_mouse no
+#for_window [class="^.*"] floating enable
+
+exec gentoo-pipewire-launcher &
